@@ -1,6 +1,6 @@
 <catalog>
     <book background="green" height="100">
-        <author type="Button" command="%quit%">Gambardella, Matthew</author>
+        <author type="Button" command="%hello%">Gambardella, Matthew</author>
         <title type="Label">XML Developer's Guide</title>
         <genre type="Label">Computer</genre>
         <price type="Label">44.95</price>

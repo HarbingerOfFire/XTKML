@@ -3,6 +3,11 @@ import xml.etree.ElementTree as ET
 import re
 from typing import Any
 
+def XTKML(func):
+    def register():
+        __builtins__[f"{func.__name__}"] = func
+    register()
+
 class string(str):
     def __init__(self, value: str) -> None:
         self.value = str(value)
@@ -10,10 +15,10 @@ class string(str):
 
     def __call__(self, *args: Any, **kwds: Any) -> Any:
         if self.value in globals().keys():
-            return globals()[self.value](*args, **kwds)
+            return globals()['__name__'][self.value](*args, **kwds)
         else:
             try:
-                return getattr(__builtins__, self.value)(*args, **kwds)
+                return globals()['__builtins__'][self.value](*args, **kwds)
             except AttributeError:
                 raise NameError(f"name '{self.value}' is not defined")
 
@@ -80,8 +85,3 @@ class xmltkinter:
                 self.tag.config(**(children.attrib))
                 self.tag.pack()
         self.tkroot.mainloop()
-
-def some_func():
-    print("Hello World")
-
-xt = xmltkinter("test.xml").start()
